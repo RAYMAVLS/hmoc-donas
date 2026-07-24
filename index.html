@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fff7fb" />
+  <title>Hear Me Out Cake</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section id="homeView" class="card hero">
+      <div class="emoji-logo">🎂</div>
+      <p class="eyebrow">party game</p>
+      <h1>Hear Me Out Cake</h1>
+      <p class="subtitle">Crea una sala, invita a tus amigos y armen el pastel en tiempo real.</p>
+
+      <label class="field">
+        <span>Tu nombre</span>
+        <input id="nameInput" maxlength="24" autocomplete="nickname" placeholder="Frosty" />
+      </label>
+
+      <div class="home-actions">
+        <button id="createRoomBtn" class="primary">Crear sala</button>
+      </div>
+
+      <div class="divider"><span>o únete</span></div>
+
+      <div class="join-row">
+        <input id="roomInput" maxlength="6" inputmode="text" placeholder="CÓDIGO" />
+        <button id="joinRoomBtn">Entrar</button>
+      </div>
+
+      <p id="homeStatus" class="status"></p>
+    </section>
+
+    <section id="gameView" class="game hidden">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Hear Me Out Cake</p>
+          <h2>Sala <span id="roomCodeText">------</span></h2>
+        </div>
+        <div class="top-actions">
+          <button id="copyLinkBtn" class="soft">Copiar invitación</button>
+          <button id="leaveBtn" class="ghost">Salir</button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar card">
+          <div class="section-title">
+            <h3>En la sala</h3>
+            <span id="playerCount" class="pill">1</span>
+          </div>
+          <div id="participantsList" class="participants"></div>
+
+          <hr />
+
+          <h3>Añadir Hear Me Out</h3>
+          <label class="field">
+            <span>¿Quién o qué es?</span>
+            <input id="itemLabelInput" maxlength="60" placeholder="Ej. Nick Wilde" />
+          </label>
+          <label class="upload-box" for="imageInput">
+            <input id="imageInput" type="file" accept="image/*" />
+            <span>📸 Elegir foto</span>
+            <small>Se reduce antes de compartirla.</small>
+          </label>
+          <div id="imagePreviewWrap" class="preview-wrap hidden">
+            <img id="imagePreview" alt="Vista previa" />
+          </div>
+          <button id="addItemBtn" class="primary full">Ponerlo en el pastel</button>
+          <p id="gameStatus" class="status"></p>
+
+          <div id="hostPanel" class="host-panel hidden">
+            <hr />
+            <span class="host-badge">👑 Tú creaste la sala</span>
+            <button id="finishBtn" class="danger full">Finalizar partida</button>
+          </div>
+        </aside>
+
+        <section class="board-card card">
+          <div class="board-toolbar">
+            <div>
+              <strong>El pastel</strong>
+              <span id="syncText">conectando…</span>
+            </div>
+            <span class="tip">Arrastra tus fotos · rueda/pellizco no requerido</span>
+          </div>
+
+          <div id="board" class="board" aria-label="Pastel colaborativo">
+            <div class="cake-art" aria-hidden="true">
+              <div class="cake-layer cake-top"><span>♡</span></div>
+              <div class="cake-layer cake-middle"></div>
+              <div class="cake-layer cake-bottom"></div>
+              <div class="plate"></div>
+            </div>
+            <div id="itemsLayer" class="items-layer"></div>
+            <div id="endedOverlay" class="ended-overlay hidden">
+              <div>
+                <div class="big">🎉</div>
+                <h2>Cake terminado</h2>
+                <p>El host cerró la partida.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section id="resultsPanel" class="card results hidden">
+        <div>
+          <p class="eyebrow">Resultados</p>
+          <h2>Reporte de la partida</h2>
+          <p>Solo aparece aquí porque eres el anfitrión.</p>
+        </div>
+        <div class="result-actions">
+          <button id="downloadReportBtn" class="primary">Descargar reporte HTML</button>
+          <button id="downloadJsonBtn">Descargar datos JSON</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <template id="itemTemplate">
+    <div class="cake-item">
+      <div class="photo-frame">
+        <img draggable="false" alt="" />
+      </div>
+      <div class="stick"></div>
+      <div class="item-tag">
+        <strong class="item-label"></strong>
+        <span class="item-owner"></span>
+      </div>
+      <button class="delete-item" title="Quitar" aria-label="Quitar">×</button>
+    </div>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
